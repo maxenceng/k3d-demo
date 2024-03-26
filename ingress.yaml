@@ -1,0 +1,20 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: whoami
+  namespace: dev
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+
+spec:
+  rules:
+    - host: whoami.localhost # Host where our app will be located
+      http:
+        paths:
+          - path: / # Can be useful to split an app targeting multiple services
+            pathType: Prefix # Can be Prefix, ImplementationSpecific or Exact
+            backend:
+              service:
+                name: whoami # Targeted service
+                port:
+                  number: 80 # Targeted port, can also be the name of the port

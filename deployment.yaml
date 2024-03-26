@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment # Defines the kind of Kubernetes object we're creating
+metadata:
+  name: whoami # Name of the deployment
+  namespace: dev # Namespace
+  labels:
+    app: whoami # Label for the deployment
+spec:
+  replicas: 2 # Number of fixed replicas
+  selector:
+    matchLabels:
+      app: whoami # Tells this deployment to match the pod label
+  template:
+    metadata:
+      labels:
+        app: whoami # Pod label
+    spec:
+      containers:
+        - image: docker.io/traefik/whoami:v1.6.1 # Image from Docker
+          name: whoami # Base name of the image
+          ports:
+            - containerPort: 80 # Exposed port
